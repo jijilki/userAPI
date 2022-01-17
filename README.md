@@ -14,20 +14,20 @@ Past Changes made :
 ========================  
 1   REST end points for Todo Application. Entity creation using LOMBOK  
 2   Mongo DB integration.  
-3   JWT token generation, Validation for all end points except /authenticate.
-4   User roles added, Used it for authentication - Read / Write /Admin access added when users getting added.
-5   Kafka queue integration, When to do task added , Writing the payload to a topic.
-6   Kafka queue listening 
+3   JWT token generation, Validation for all end points except /authenticate.  
+4   User roles added, Used it for authentication - Read / Write /Admin access added when users getting added.  
+5   Kafka queue integration, When to do task added , Writing the payload to a topic.  
+6   Kafka queue listening   
 
 
-Technology used :
-=========================
-Spring boot :   2.5.5
-Spring Security
-Mongodb
-Lombok :    1.18.20
-OPEN API (Swagger): 1.6.4
-Kafka:  2.7.2
+Technology used :  
+========================= 
+Spring boot :   2.5.5  
+Spring Security  
+Mongodb  
+Lombok :    1.18.20  
+OPEN API (Swagger): 1.6.4  
+Kafka:  2.7.2  
 
 
 
