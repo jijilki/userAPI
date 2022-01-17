@@ -14,7 +14,7 @@
 	<name>userAPI</name>
 	<description>userAPI  Project</description>
 	<properties>
-		<java.version>11</java.version>
+		<java.version>17</java.version>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -36,11 +36,11 @@
 			<version>1.18.20</version>
 			<scope>provided</scope>
 		</dependency>
-		<!--<dependency>
+		<dependency>
 			<groupId>io.jsonwebtoken</groupId>
 			<artifactId>jjwt</artifactId>
 			<version>0.9.1</version>
-		</dependency>-->
+		</dependency>
 		<!-- Java xml dependency added to avoid javax xml bind DataType Convertor Class Not Found Exception-->
 		<dependency>
 			<groupId>javax.xml.bind</groupId>
@@ -79,8 +79,6 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <configuration>
-					<source>17</source>
-					<target>17</target>
 					<compilerArgs>--enable-preview</compilerArgs>
 				</configuration>
             </plugin>
