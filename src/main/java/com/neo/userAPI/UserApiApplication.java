@@ -6,7 +6,6 @@ import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
 import com.neo.userAPI.model.UserRequest;
 import com.neo.userAPI.model.UserResponse;
-import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -18,20 +17,20 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.kafka.core.KafkaTemplate;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.filter.OncePerRequestFilter;
 
-import javax.servlet.Filter;
 import java.io.IOException;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @SpringBootApplication
 @RestController
@@ -60,6 +59,12 @@ public class UserApiApplication extends WebSecurityConfigurerAdapter implements 
     @Autowired
     KafkaTemplate<String,TodoEntity> kafkaTemplate;
 
+    @Autowired
+    PasswordEncoder passwordEncoder;
+
+   /* @Autowired
+    UserDetailsService userDetailsService;*/
+
     public static void main(String[] args) {
         SpringApplication.run(UserApiApplication.class, args);
     }
@@ -67,8 +72,8 @@ public class UserApiApplication extends WebSecurityConfigurerAdapter implements 
     @Override
     public void run(String... args) {
         userRepository.deleteAll();
-        userRepository.save(new UserEntity(1122L, "Neo", "Meow", "READ_ACCESS,WRITE_ACCESS,ADMIN_ACCESS"));
-        userRepository.save(new UserEntity(1123L, "Leo", "Woof", "READ_ACCESS"));
+        userRepository.save(new UserEntity(1122L, "Neo", passwordEncoder.encode("Meow"), "READ_ACCESS,WRITE_ACCESS,ADMIN_ACCESS"));
+        userRepository.save(new UserEntity(1123L, "Leo", passwordEncoder.encode("Woof"), "READ_ACCESS"));
 
     }
 
@@ -90,7 +95,7 @@ public class UserApiApplication extends WebSecurityConfigurerAdapter implements 
         if (TodoUtil.hasWriteAccess()) {
             List<TodoEntity> todo = todoInterface.createTodo(todoRequest);
             resp = new ResponseEntity<>(todo, HttpStatus.OK);
-         //   sendMessageToKafkaQueue(todoRequest);
+            sendMessageToKafkaQueue(todoRequest);
         } else {
 
             resp = new ResponseEntity<>("No Write access for the user", HttpStatus.UNAUTHORIZED);
@@ -147,7 +152,7 @@ public class UserApiApplication extends WebSecurityConfigurerAdapter implements 
 
 
     public void sendMessageToKafkaQueue(TodoEntity todoReq){
-   //     kafkaTemplate.send("TutorialTopic",todoReq);
+      // kafkaTemplate.send("TutorialTopic",todoReq);
     }
 
 
@@ -186,23 +191,28 @@ public class UserApiApplication extends WebSecurityConfigurerAdapter implements 
         httpSecurity.addFilterAfter(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
  }
 
-    // Mongo Configurations
 
+  /*  @Override
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+        auth.authenticationProvider(authProvider());
+    }*/
+
+
+
+    //For encrypted password with hashing and salting
     @Bean
-    public MongoClient mongo() {
-        ConnectionString connectionString = new ConnectionString("mongodb://localhost:27017/test");
-        MongoClientSettings mongoClientSettings = MongoClientSettings.builder()
-                                                                     .applyConnectionString(connectionString)
-                                                                     .build();
-
-        return MongoClients.create(mongoClientSettings);
-    }
-
-    @Bean
-    public MongoTemplate mongoTemplate() throws Exception {
-        return new MongoTemplate(mongo(), "test");
+    public PasswordEncoder encoder(){
+        return new BCryptPasswordEncoder();
     }
 
 
+
+  /*  @Bean
+    public DaoAuthenticationProvider authProvider() {
+        DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
+        authProvider.setUserDetailsService(userDetailsService);
+        authProvider.setPasswordEncoder(encoder());
+        return authProvider;
+    }*/
 
 }
