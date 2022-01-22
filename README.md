@@ -39,6 +39,7 @@ Past Changes made :
 
 Technology used :  
 ========================= 
+Java 17 - Open JDK  
 Spring boot :   2.5.5  
 Spring Security  
 Mongodb  
