@@ -6,10 +6,13 @@ import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.mongodb.config.EnableMongoAuditing;
 import org.springframework.data.mongodb.core.MongoTemplate;
 
 @Configuration
-public class MongoConfigurations {
+//Added MongoAuditing so that database table have time field gets updated automatically
+@EnableMongoAuditing
+public class MongoConfiguration {
 
     // Mongo Configurations
     @Bean

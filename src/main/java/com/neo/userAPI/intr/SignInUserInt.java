@@ -1,4 +1,4 @@
-package com.neo.userAPI;
+package com.neo.userAPI.intr;
 
 import com.neo.userAPI.model.UserRequest;
 import com.neo.userAPI.model.UserResponse;

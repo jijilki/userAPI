@@ -1,5 +1,6 @@
-package com.neo.userAPI;
+package com.neo.userAPI.util;
 
+import com.neo.userAPI.entity.UserEntity;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;

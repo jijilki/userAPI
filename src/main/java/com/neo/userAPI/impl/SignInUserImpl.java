@@ -1,16 +1,19 @@
-package com.neo.userAPI;
+package com.neo.userAPI.impl;
 
+import com.neo.userAPI.util.JwtTokenUtil;
+import com.neo.userAPI.entity.UserEntity;
+import com.neo.userAPI.repo.UserRepository;
+import com.neo.userAPI.intr.SignInUserInt;
 import com.neo.userAPI.model.UserRequest;
 import com.neo.userAPI.model.UserResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Component
-public class SignInUserImpl implements  SignInUserInt  {
+public class SignInUserImpl implements SignInUserInt {
 
 
     @Autowired

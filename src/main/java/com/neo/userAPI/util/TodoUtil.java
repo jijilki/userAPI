@@ -1,4 +1,4 @@
-package com.neo.userAPI;
+package com.neo.userAPI.util;
 
 import org.springframework.security.core.context.SecurityContextHolder;
 

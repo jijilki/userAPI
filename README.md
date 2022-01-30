@@ -50,3 +50,5 @@ Kafka:  2.7.2
 
 
 
+Todo :
+Learn Runners and Post Pre scripting in POSTMAN.

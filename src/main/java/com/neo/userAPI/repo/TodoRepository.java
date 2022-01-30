@@ -1,6 +1,6 @@
-package com.neo.userAPI;
+package com.neo.userAPI.repo;
 
-import org.bson.types.ObjectId;
+import com.neo.userAPI.entity.TodoEntity;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 

@@ -1,4 +1,4 @@
-package com.neo.userAPI;
+package com.neo.userAPI.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

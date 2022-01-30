@@ -1,6 +1,8 @@
-package com.neo.userAPI;
+package com.neo.userAPI.impl;
 
-import org.bson.types.ObjectId;
+import com.neo.userAPI.entity.TodoEntity;
+import com.neo.userAPI.repo.TodoRepository;
+import com.neo.userAPI.intr.TodoInterface;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
@@ -11,7 +13,7 @@ import java.io.IOException;
 import java.util.List;
 
 @Component
-public class ToDoImpl implements  TodoInterface {
+public class ToDoImpl implements TodoInterface {
 
     @Autowired
     TodoRepository todoRepository;

@@ -1,5 +1,6 @@
-package com.neo.userAPI;
+package com.neo.userAPI.security;
 
+import com.neo.userAPI.util.JwtTokenUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
