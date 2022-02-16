@@ -1,31 +1,40 @@
 package com.neo.userAPI.util;
 
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 
-import java.util.List;
-import java.util.stream.Collectors;
+import java.util.function.Predicate;
 
-public  class TodoUtil {
+public class TodoUtil {
 
 
     public static boolean hasWriteAccess() {
-        return getUserAccessList().contains("WRITE_ACCESS") || getUserAccessList().contains("ADMIN_ACCESS") ;
+
+        Predicate<GrantedAuthority> writeAccess = p -> p.getAuthority().contains("ADMIN_ACCESS") || p.getAuthority().contains("ADMIN_ACCESS");
+
+        return SecurityContextHolder.getContext()
+                .getAuthentication()
+                .getAuthorities()
+                .stream().anyMatch(writeAccess);
+
     }
 
     public static boolean hasReadAccess() {
-        return getUserAccessList().contains("WRITE_ACCESS") || getUserAccessList().contains("ADMIN_ACCESS") || getUserAccessList().contains("WRITE_ACCESS")  ;
+        return SecurityContextHolder.getContext()
+                .getAuthentication()
+                .getAuthorities()
+                .stream().anyMatch(p -> p.getAuthority().contains("READ_ACCESS"));
     }
 
-    private static List<String> getUserAccessList() {
+  /*  private static List<String> getUserAccessList() {
         List<String> userRoles = SecurityContextHolder.getContext()
                                                     .getAuthentication()
                                                     .getAuthorities()
                                                     .stream()
-                                                    .map(x -> x.getAuthority()
-                                                               .toString())
+                                                    .map(x -> x.getAuthority())
                                                     .collect(Collectors.toList());
         return userRoles;
-    }
+    }*/
 
 
 }

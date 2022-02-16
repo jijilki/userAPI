@@ -1,6 +1,5 @@
 package com.neo.userAPI.util;
 
-import com.neo.userAPI.entity.UserEntity;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -11,6 +10,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
 import javax.crypto.spec.SecretKeySpec;
@@ -99,10 +99,10 @@ public class JwtTokenUtil implements Serializable {
     }
 
 
-    public String generateToken(UserEntity userEntity) {
+    public String generateToken(UserDetails userEntity) {
         Map<String, Object> claims = new HashMap<>();
-        claims.put(USER_ROLES, userEntity.getUserRoles());
-        return doGenerateToken(claims, Long.toString(userEntity.getUserId()));
+        claims.put(USER_ROLES, userEntity.getAuthorities()); // ? User roles change to authorirites, will this work
+        return doGenerateToken(claims, userEntity.getUsername());
     }
 
 

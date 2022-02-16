@@ -8,6 +8,8 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import java.util.Arrays;
+
 @SpringBootApplication
 public class UserApiApplication implements CommandLineRunner {
 
@@ -26,9 +28,8 @@ public class UserApiApplication implements CommandLineRunner {
     @Override
     public void run(String... args) {
         userRepository.deleteAll();
-        userRepository.save(new UserEntity(1122L, "Neo", passwordEncoder.encode("Meow"), "READ_ACCESS,WRITE_ACCESS,ADMIN_ACCESS"));
-        userRepository.save(new UserEntity(1123L, "Leo", passwordEncoder.encode("Woof"), "READ_ACCESS"));
-
+        userRepository.save(new UserEntity("jijilki@gmail.com",passwordEncoder.encode("Meow"), Arrays.asList("READ_ACCESS","WRITE_ACCESS","ADMIN_ACCESS")));
+        userRepository.save(new UserEntity("neojilz@gmail.com", passwordEncoder.encode("Woof"), Arrays.asList("READ_ACCESS")));
     }
 
 

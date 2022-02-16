@@ -5,15 +5,15 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.util.List;
+
 @Data
 @AllArgsConstructor
 @Document(collection = "User")
 public class UserEntity {
-
-    private long userId;
     private String userName;
     private String password;
-    private String userRoles;
+    private List<String> userRoles;
 
+    }
 
-}

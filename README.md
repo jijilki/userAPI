@@ -1,5 +1,8 @@
 Work Log
 =============================
+16-Feb-2022
+Dropped plan of Spring security config with Authentication Builder manager, Instead used existing mechanism with slight improvement with GA roles etc. 
+
 22-Jan-2022
 Proper registration and login process implementation to be done.
 As part of it doing some code clean up : 
